@@ -55,10 +55,9 @@ export declare class Client {
 }
 
 export declare class Publisher {
-  static create(tableName: string): Publisher;
-  setOper(oper: OPER_TYPES): Publisher;
+  static create(oper: OPER_TYPES): Publisher;
+  static generateBatch(publishers: Publisher[], standard?: boolean): object;
   addField(key: string, value: any): Publisher;
-  compile(standard?: Boolean): object;
 }
 
 export declare class QueryBuilder {
