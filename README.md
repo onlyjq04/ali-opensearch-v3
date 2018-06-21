@@ -74,4 +74,4 @@ If it is not added, the test suit will skip it.
 
 ### License
 
-[GPL v3 License](https://raw.githubusercontent.com/leftstick/string-transformer/master/LICENSE)
+[GPL v3 License](https://raw.githubusercontent.com/onlyjq04/ali-opensearch-v3/master/LICENSE)
