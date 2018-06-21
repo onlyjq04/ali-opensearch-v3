@@ -1,0 +1,52 @@
+{
+  "name": "ali-opensearch-v3",
+  "version": "1.0.0",
+  "author": "Jiaqi You <onlyjq04@gmail.com>",
+  "description": "Nodejs sdk for Ali opensearch V3 API",
+  "main": "./dist/index.js",
+  "types": "./types/index.d.ts",
+  "files": [
+    "dist/src"
+  ],
+  "scripts": {
+    "build": "rm -rf ./dist && tsc -p .",
+    "ts-node": "./node_modules/.bin/ts-node",
+    "eslint": "eslint src/**/*",
+    "test-all": "./node_modules/.bin/mocha --compilers ts:ts-node/register --config=./test.config.json ./test/*.spec.ts",
+    "test": "./node_modules/.bin/mocha --compilers ts:ts-node/register"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/onlyjq04/ali-opensearch-v3"
+  },
+  "homepage": "https://github.com/onlyjq04/ali-opensearch-v3#readme",
+  "bugs": {
+    "url": "https://github.com/onlyjq04/ali-opensearch-v3/issues"
+  },
+  "license": "GPL-3.0",
+  "dependencies": {
+    "@types/axios": "^0.14.0"
+  },
+  "keywords": [
+    "ali",
+    "opensearch",
+    "nodejs"
+  ],
+  "devDependencies": {
+    "@types/chai": "^4.1.4",
+    "@types/minimist": "^1.2.0",
+    "@types/mocha": "^5.2.2",
+    "@types/node": "^10.3.4",
+    "chai": "^4.1.2",
+    "eslint": "^4.19.1",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-prettier": "^2.6.0",
+    "eslint-plugin-typescript": "^0.12.0",
+    "minimist": "^1.2.0",
+    "mocha": "^5.2.0",
+    "prettier": "^1.13.5",
+    "ts-node": "^6.1.1",
+    "typescript": "^2.9.2",
+    "typescript-eslint-parser": "^16.0.0"
+  }
+}

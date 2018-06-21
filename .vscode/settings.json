@@ -1,0 +1,12 @@
+{
+  "eslint.validate": ["javascript", "javascriptreact", "typescript"],
+  "eslint.enable": true,
+  "editor.formatOnSave": true,
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "prettier.disableLanguages": ["vue"],
+  "javascript.validate.enable": false,
+  "npm.updateStrategy": "SEMVER",
+  "python.pythonPath": "C:\\Users\\onlyj\\Miniconda3\\python.exe",
+  "python.formatting.provider": "black"
+}
