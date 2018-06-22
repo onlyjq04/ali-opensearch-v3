@@ -5,6 +5,7 @@
 根据阿里云 Opensearch V3 的 API 开发的 nodejs SDK
 
 #### Usage
+`npm i ali-opensearch-v3`
 
 ```javascript
 const { Client, QueryBuilder, Publisher } = require('ali-opensearch-v3');
