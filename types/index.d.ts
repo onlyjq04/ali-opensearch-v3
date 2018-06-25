@@ -49,9 +49,9 @@ export declare enum OPER_TYPES {
 }
 
 export declare class Client {
-  constructor(host: string, cred: Credential);
-  search(appName: string, resourcePath: string, query: string): Promise<object>;
-  publish(appName: string, resourcePath: string, content: object): Promise<object>;
+  constructor(host: string, appName: string, cred: Credential);
+  search(resourcePath: string, query: string): Promise<object>;
+  publish(resourcePath: string, content: object): Promise<object>;
 }
 
 export declare class Publisher {
