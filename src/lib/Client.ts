@@ -11,13 +11,15 @@ export class Client {
   private static readonly _v: string = 'v3';
   private host: string;
   private credentials: Credential;
-  constructor(host: string, cred: Credential) {
+  private appName: string;
+  constructor(host: string, appName: string, cred: Credential) {
     this.credentials = cred;
     this.host = host;
+    this.appName = appName;
   }
 
-  public async search(appName: string, resourcePath: string, query: string): Promise<object> {
-    const getReqHeader = new GetReqHeader(this.buildEntry(appName), resourcePath, query);
+  public async search(resourcePath: string, query: string): Promise<object> {
+    const getReqHeader = new GetReqHeader(this.buildEntry(), resourcePath, query);
     const headers = {
       'Content-MD5': '',
       'Content-Type': getReqHeader.contentType,
@@ -47,8 +49,8 @@ export class Client {
     }
   }
 
-  public async publish(appName: string, resourcePath: string, content: object): Promise<object> {
-    const postReqHeader = new PostReqHeader(this.buildEntry(appName), resourcePath, content);
+  public async publish(resourcePath: string, content: object): Promise<object> {
+    const postReqHeader = new PostReqHeader(this.buildEntry(), resourcePath, content);
     const headers = {
       Authorization: this.buildAuthorization(postReqHeader),
       'Content-Type': postReqHeader.contentType,
@@ -79,12 +81,12 @@ export class Client {
     }
   }
 
-  public buildEntry(appName: string): string {
-    return `/v3/openapi/apps/${appName}`;
+  public buildEntry(): string {
+    return `/v3/openapi/apps/${this.appName}`;
   }
 
-  public buildBaseUrl(appName: string) {
-    return `${this.host}/v3/openapi/apps/${appName}`;
+  public buildBaseUrl() {
+    return `${this.host}/v3/openapi/apps/${this.appName}`;
   }
 
   private buildAuthorization<T extends Header>(header: T): string {

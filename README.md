@@ -5,12 +5,13 @@
 根据阿里云 Opensearch V3 的 API 开发的 nodejs SDK
 
 #### Usage
+
 `npm i ali-opensearch-v3`
 
 ```javascript
 const { Client, QueryBuilder, Publisher } = require('ali-opensearch-v3');
 // 新建一个Client：
-const api = new Client('your host', {
+const api = new Client('your host', 'appName', {
   accessKeyId,
   accessKeySecret
 });
@@ -27,7 +28,7 @@ const queryString = qb
   .getQuery();
 
 // 搜索
-api.search('appName', 'resource path', queryString); // promise
+api.search('resource path', queryString); // promise
 
 // 构建push的content:
 const pub = Publisher.create('ADD/UPDATE/DELETE');
@@ -38,7 +39,7 @@ bulk.push(pub);
 bulk = Publisher.generateBatch(bulk);
 
 // Publish：
-api.publish('appName', 'resource path', bulk); // promise
+api.publish('resource path', bulk); // promise
 ```
 
 #### Testing

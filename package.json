@@ -1,6 +1,6 @@
 {
   "name": "ali-opensearch-v3",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "author": "Jiaqi You <onlyjq04@gmail.com>",
   "description": "Nodejs sdk for Ali opensearch V3 API",
   "main": "./dist/index.js",
