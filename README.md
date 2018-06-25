@@ -25,10 +25,9 @@ const queryString = qb
   .addFetchField('field you want to fetch')
   .setHit('hit number')
   // compile your query to percent encode string:
-  .getQuery();
 
 // 搜索
-api.search('resource path', queryString); // promise
+api.search('resource path', qb, isStandard?); // promise
 
 // 构建push的content:
 const pub = Publisher.create('ADD/UPDATE/DELETE');
@@ -36,7 +35,6 @@ pub.addField('field key', 'field value');
 // 将 pub 放入一个 array 中，然后用 Publisher的static方法生成bulk action:
 const bulk = [];
 bulk.push(pub);
-bulk = Publisher.generateBatch(bulk);
 
 // Publish：
 api.publish('resource path', bulk); // promise
