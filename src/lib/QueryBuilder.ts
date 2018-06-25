@@ -12,7 +12,7 @@ export interface IQueryConfig {
 export interface IQuery {
   body?: IQueryBody;
   fetch_fields?: string[];
-  summary?: ISummary;
+  summary?: ISummary[];
 }
 
 // 搜索主体，需用&&连接
@@ -108,18 +108,34 @@ export class QueryBuilder {
     return this;
   }
 
-  public addSummary(summary: ISummary): QueryBuilder {
-    if (!this.payload.summary) {
-      this.payload.summary = summary;
-    } else {
-      Object.keys(summary).forEach(key => {
-        this.payload.summary[key] = summary[key];
-      });
-    }
+  public addSummary(
+    summary_field: string,
+    summary_element?: string,
+    summary_ellipsis?: string,
+    summary_snipped?: number,
+    summary_len?: number,
+    summary_element_prefix?: string,
+    summary_element_postfix?: string
+  ): QueryBuilder {
+    const summary = {} as ISummary;
 
-    if (!this.payload.summary.summary_field) {
+    if (!summary_field) {
       throw new Error('Summary must contains summary_field field');
     }
+
+    summary['summary_field'] = summary_field;
+    if (summary_element) summary['summary_element'] = summary_element;
+    if (summary_element) summary['summary_ellipsis'] = summary_ellipsis;
+    if (summary_element) summary['summary_snipped'] = summary_snipped;
+    if (summary_element) summary['summary_len'] = summary_len;
+    if (summary_element) summary['summary_element_prefix'] = summary_element_prefix;
+    if (summary_element) summary['summary_element_postfix'] = summary_element_postfix;
+
+    if (!this.payload.summary) {
+      this.payload.summary = [];
+    }
+
+    this.payload.summary.push(summary);
 
     return this;
   }
@@ -190,8 +206,12 @@ export class QueryBuilder {
     if (fetch_fields) {
       paramsMap['fetch_fields'] = fetch_fields.join(';');
     }
-    if (summary) {
-      paramsMap['summary'] = this.parseObj(summary);
+    if (summary && summary.length > 0) {
+      const summaryParsed = [];
+      summary.forEach(s => {
+        summaryParsed.push(this.parseObj(s));
+      });
+      paramsMap['summary'] = summaryParsed.join(';');
     }
 
     const paramsArr = this.sortParams(paramsMap);

@@ -1,5 +1,7 @@
 import Axios from 'axios';
 import { Credential, GetReqHeader, PostReqHeader, Header } from './Header';
+import { QueryBuilder } from './QueryBuilder';
+import { Publisher } from './Publisher';
 
 class ApplicationError extends Error {
   constructor(message: string) {
@@ -18,8 +20,8 @@ export class Client {
     this.appName = appName;
   }
 
-  public async search(resourcePath: string, query: string): Promise<object> {
-    const getReqHeader = new GetReqHeader(this.buildEntry(), resourcePath, query);
+  public async search(resourcePath: string, qb: QueryBuilder): Promise<object> {
+    const getReqHeader = new GetReqHeader(this.buildEntry(), resourcePath, qb.getQuery());
     const headers = {
       'Content-MD5': '',
       'Content-Type': getReqHeader.contentType,
@@ -49,7 +51,8 @@ export class Client {
     }
   }
 
-  public async publish(resourcePath: string, content: object): Promise<object> {
+  public async publish(resourcePath: string, publishers: Publisher[], isStandard?: boolean): Promise<object> {
+    const content = Publisher.generateBatch(publishers, isStandard);
     const postReqHeader = new PostReqHeader(this.buildEntry(), resourcePath, content);
     const headers = {
       Authorization: this.buildAuthorization(postReqHeader),

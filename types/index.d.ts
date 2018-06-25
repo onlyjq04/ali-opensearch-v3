@@ -50,8 +50,8 @@ export declare enum OPER_TYPES {
 
 export declare class Client {
   constructor(host: string, appName: string, cred: Credential);
-  search(resourcePath: string, query: string): Promise<object>;
-  publish(resourcePath: string, content: object): Promise<object>;
+  search(resourcePath: string, qb: QueryBuilder): Promise<object>;
+  publish(resourcePath: string, publishers: Publisher[], isStandard?: boolean): Promise<object>;
 }
 
 export declare class Publisher {
@@ -68,6 +68,14 @@ export declare class QueryBuilder {
   setHit(hit: number): QueryBuilder;
   setStartHit(start: number): QueryBuilder;
   addFetchField(field: string): QueryBuilder;
-  addSummary(summary: ISummary): QueryBuilder;
+  addSummary(
+    summary_field: string,
+    summary_element?: string,
+    summary_ellipsis?: string,
+    summary_snipped?: number,
+    summary_len?: number,
+    summary_element_prefix?: string,
+    summary_element_postfix?: string
+  ): QueryBuilder;
   getQuery(): string;
 }

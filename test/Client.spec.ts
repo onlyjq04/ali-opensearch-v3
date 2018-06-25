@@ -10,7 +10,7 @@ describe('OSApi Tests', () => {
   let config;
   let cred;
   let host;
-  let query;
+  let qb;
   let appName;
   let api;
   let run;
@@ -37,8 +37,8 @@ describe('OSApi Tests', () => {
         appName = config.appName;
         host = config.host;
         api = new Client(host, appName, cred);
-        query = QueryBuilder.create();
-        query.setQuery(config.query).setFormat('fulljson');
+        qb = QueryBuilder.create();
+        qb.setQuery(config.query).setFormat('fulljson');
 
         return true;
       }
@@ -49,7 +49,7 @@ describe('OSApi Tests', () => {
   it('should make the search request to ali-opensearch', async () => {
     if (run) {
       try {
-        const result = await api.search('', query.getQuery());
+        const result = await api.search('', qb);
         expect(result.result.items).to.be.exist;
       } catch (err) {
         console.log(err);
@@ -67,7 +67,7 @@ describe('OSApi Tests', () => {
         batch.push(pub);
       });
       try {
-        const result = await api.publish(config.publish.resource, Publisher.generateBatch(batch));
+        const result = await api.publish(config.publish.resource, batch);
         expect(result);
       } catch (err) {
         console.log(err.response.data.errors);
