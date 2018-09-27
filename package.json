@@ -26,7 +26,8 @@
   },
   "license": "GPL-3.0",
   "dependencies": {
-    "@types/axios": "^0.14.0"
+    "@types/axios": "^0.14.0",
+    "url-join": "^4.0.0"
   },
   "keywords": [
     "ali",

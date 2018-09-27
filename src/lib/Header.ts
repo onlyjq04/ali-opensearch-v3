@@ -1,6 +1,6 @@
 import { VERB } from '../enum';
 import { createHash, createHmac } from 'crypto';
-import { join } from 'path';
+import * as urlJoin from 'url-join'
 
 export interface Credential {
   accessKeyId: string;
@@ -22,7 +22,7 @@ export abstract class Header {
    */
   constructor(entryUrl: string, resource: string, query?: string) {
     this.date = new Date();
-    this.canonicalizedResource = join(entryUrl, resource || '', query || '');
+    this.canonicalizedResource = urlJoin(entryUrl, resource || '', query || '');
     this.canonicalizedOpenSearchHeaders = this.generateNonce();
   }
 
