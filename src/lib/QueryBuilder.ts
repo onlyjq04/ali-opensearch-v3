@@ -175,6 +175,7 @@ export class QueryBuilder {
   }
 
   private encoder(str: string): string {
+    str = str.replace(/\\/g, '\\\\');
     return encodeURIComponent(str)
       .replace(/'/g, '%27')
       .replace(/\(/g, '%28')
