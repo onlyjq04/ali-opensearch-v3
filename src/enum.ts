@@ -8,3 +8,7 @@ export enum OPER_TYPES {
   UPDATE = 'UPDATE',
   DELETE = 'DELETE'
 }
+
+export enum DISABLES {
+  QP = 'qp'
+}

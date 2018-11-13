@@ -48,6 +48,10 @@ export declare enum OPER_TYPES {
   DELETE = 'DELETE'
 }
 
+export declare enum DISABLES {
+  QP = 'qp'
+}
+
 export declare class Client {
   constructor(host: string, appName: string, cred: Credential);
   search(resourcePath: string, qb: QueryBuilder): Promise<object>;
@@ -78,4 +82,5 @@ export declare class QueryBuilder {
     summary_element_postfix?: string
   ): QueryBuilder;
   getQuery(): string;
+  addDisable(): QueryBuilder;
 }

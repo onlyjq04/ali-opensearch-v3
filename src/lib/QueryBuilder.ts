@@ -1,3 +1,5 @@
+import { DISABLES } from '../enum';
+
 export interface IQueryConfig {
   // 从搜索结果中第start个文档开始返回 范围[0, 5000] 默认0
   start?: number;
@@ -13,6 +15,7 @@ export interface IQuery {
   body?: IQueryBody;
   fetch_fields?: string[];
   summary?: ISummary[];
+  disable?: DISABLES[];
 }
 
 // 搜索主体，需用&&连接
@@ -125,11 +128,11 @@ export class QueryBuilder {
 
     summary['summary_field'] = summary_field;
     if (summary_element) summary['summary_element'] = summary_element;
-    if (summary_element) summary['summary_ellipsis'] = summary_ellipsis;
-    if (summary_element) summary['summary_snipped'] = summary_snipped;
-    if (summary_element) summary['summary_len'] = summary_len;
-    if (summary_element) summary['summary_element_prefix'] = summary_element_prefix;
-    if (summary_element) summary['summary_element_postfix'] = summary_element_postfix;
+    if (summary_ellipsis) summary['summary_ellipsis'] = summary_ellipsis;
+    if (summary_snipped) summary['summary_snipped'] = summary_snipped;
+    if (summary_len) summary['summary_len'] = summary_len;
+    if (summary_element_prefix) summary['summary_element_prefix'] = summary_element_prefix;
+    if (summary_element_postfix) summary['summary_element_postfix'] = summary_element_postfix;
 
     if (!this.payload.summary) {
       this.payload.summary = [];
@@ -137,6 +140,14 @@ export class QueryBuilder {
 
     this.payload.summary.push(summary);
 
+    return this;
+  }
+
+  public addDisable(disable: DISABLES): QueryBuilder {
+    if (!this.payload.disable) {
+      this.payload.disable = [];
+    }
+    this.payload.disable.push(disable);
     return this;
   }
 
@@ -185,7 +196,7 @@ export class QueryBuilder {
   }
 
   private buildQueryString(): string {
-    const { summary, fetch_fields } = this.payload;
+    const { summary, fetch_fields, disable } = this.payload;
     const paramsMap = {};
 
     // This part is fully percent encoded
@@ -218,6 +229,9 @@ export class QueryBuilder {
         summaryParsed.push(this.parseObj(s));
       });
       paramsMap['summary'] = summaryParsed.join(';');
+    }
+    if (disable && disable.length > 0) {
+      paramsMap['disable'] = disable.join(';');
     }
 
     const paramsArr = this.sortParams(paramsMap);
